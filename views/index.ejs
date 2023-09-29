@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" style="border-radius: 20px;">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%=title%></title>
+</head>
+<body>
+    <div id="app-container">
+        <h1>TODO App</h1>
+        <div id="input-container">
+            <form action="/create-task" method="post">
+                <p class="form">
+                    <label for="margin-right">DESCRIPTION</label>
+                    <input type="text" id="margin-right" name="taskName" required placeholder="What do you need to do?">
+                </p>
+                <p class="form">
+                    <label for="category-sel" id="category-selection">CATEGORY</label>
+                    <select name="category" id="category-sel" class="category" required>
+                        <option value="personal" id="personal">Personal</option>
+                        <option value="work" id="work">Work</option>
+                        <option value="school" id="school">School</option>
+                        <option value="cleaning" id="cleaning">Cleaning</option>
+                        <option value="others" id="others">Others</option>
+                    </select>
+                </p>
+                <p class="form">    
+                    <label for="Due-Date">DUE DATE</label>
+                    <input type="date" name="date" required id="Due-Date" placeholder="dd/mm/yyyy">
+                    <button type="submit" id="addTask" onclick="updateCategoryBackground();">ADD TASK</button>
+                </p>
+            </form>
+            <button type="submit" id="deleteTask" onclick="deleteTasks();">DELETE TASK</button>
+            <p id="pending_task_count">Pending Task:<span id="pending-count"><%= pendingCount %></p>
+            <p id="completed_task_count">Completed Task:<span id="completed-count"><%= completedCount %></span></p>
+            <p><a href="/usermanual"><button id="usermanual">User Manual</button></a></p>
+        </div>
+        <div id="task-container">
+            <ul>
+                <% for(let i of task_list){%>
+                    <li data-category="<%= i.category %>" >
+                        <p class="li1"><input type="checkbox" name="checkbox" value="<%= i.taskName %>" <% if (i.checkbox) { %>checked<% } %>></p>
+                        <p class="li2" id="editValue"><%=i.taskName%></p>
+                        <p class="li2" id="category"><%=i.category%></p>
+                        <p class="li2"><%=i.date%></p>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
+</html>
